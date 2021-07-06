@@ -41,11 +41,11 @@ Component({
     console.log('r', role)
     if (role ==='visitor') {
       this.setData({
-        list: this.visitor
+        list: this.data.visitor
       })
     } else {
       this.setData({
-        list: this.admin
+        list: this.data.admin
       })
     }
   },
