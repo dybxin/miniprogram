@@ -1,9 +1,23 @@
 Component({
-    data: {
-      selected: 0,
-      color: "#7A7E83",
-      selectedColor: "#3cc51f",
-      list: [{
+  data: {
+    selected: 0,
+    color: "#7A7E83",
+    selectedColor: "#3cc51f",
+    visitor: [
+      {
+        "pagePath": "/pages/index/index",
+        "iconPath": "/images/extui.png",
+        "selectedIconPath": "/images/extuiHL.png",
+        "text": "首页"
+      }, {
+        "pagePath": "/pages/login/index",
+        "iconPath": "/images/template.png",
+        "selectedIconPath": "/images/templateHL.png",
+        "text": "登录"
+      }
+    ],
+    admin: [
+      {
         "pagePath": "/pages/index/index",
         "iconPath": "/images/extui.png",
         "selectedIconPath": "/images/extuiHL.png",
@@ -18,21 +32,34 @@ Component({
         "iconPath": "/images/component.png",
         "selectedIconPath": "/images/componentHL.png",
         "text": "日志"
-      }]
-    },
-    attached() {
-    },
-    methods: {
-      switchTab(e) {
-        console.log('data', e.currentTarget.dataset)
-        const data = e.currentTarget.dataset
-        const url = data.path
-        
-        this.setData({
-          selected: data.index
-        })
-
-        wx.switchTab({url})
       }
+    ],
+    list: []
+  },
+  attached() {
+    let role = wx.getStorageSync('role') || ""
+    console.log('r', role)
+    if (role ==='visitor') {
+      this.setData({
+        list: this.visitor
+      })
+    } else {
+      this.setData({
+        list: this.admin
+      })
     }
-  })
+  },
+  methods: {
+    switchTab(e) {
+      console.log('data', e.currentTarget.dataset)
+      const data = e.currentTarget.dataset
+      const url = data.path
+
+      this.setData({
+        selected: data.index
+      })
+
+      wx.switchTab({ url })
+    }
+  }
+})
